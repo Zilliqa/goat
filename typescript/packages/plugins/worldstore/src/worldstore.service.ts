@@ -6,9 +6,12 @@ export class WorldstoreService {
         description: "Searches for products on all stores within the WorldStore",
     })
     async searchForProduct(parameters: SearchParameters) {
+        console.log("Searching for product by query:", parameters.query);
         const res = await fetch(
-            `https://www.crossmint.com/api/worldstore/search?query=${parameters.query}&limit=${parameters.limit}`,
+            `https://www.crossmint.com/api/worldstore/products/search?query=${parameters.query}&limit=${parameters.limit}`,
         );
-        return res.json();
+        const json = await res.json();
+        console.log("Search results:", json);
+        return json;
     }
 }

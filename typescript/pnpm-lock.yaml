@@ -514,6 +514,9 @@ importers:
       '@goat-sdk/plugin-crossmint-headless-checkout':
         specifier: workspace:*
         version: link:../../../packages/plugins/crossmint-headless-checkout
+      '@goat-sdk/plugin-worldstore':
+        specifier: workspace:*
+        version: link:../../../packages/plugins/worldstore
       '@goat-sdk/wallet-evm':
         specifier: workspace:*
         version: link:../../../packages/wallets/evm
