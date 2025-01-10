@@ -3,8 +3,8 @@ import { Chain, PluginBase } from "@goat-sdk/core";
 import { WorldstoreService } from "./worldstore.service";
 
 export class WorldstorePlugin extends PluginBase {
-    constructor() {
-        super("worldstore", [new WorldstoreService()]);
+    constructor(baseUrl: string = "https://www.crossmint.com") {
+        super("worldstore", [new WorldstoreService(baseUrl)]);
     }
 
     supportsChain(chain: Chain) {
@@ -13,4 +13,4 @@ export class WorldstorePlugin extends PluginBase {
     }
 }
 
-export const worldstore = () => new WorldstorePlugin();
+export const worldstore = (baseUrl?: string) => new WorldstorePlugin(baseUrl);

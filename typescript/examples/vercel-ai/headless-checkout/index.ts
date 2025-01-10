@@ -9,9 +9,9 @@ import { baseSepolia } from "viem/chains";
 import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
 
 import { crossmintHeadlessCheckout } from "@goat-sdk/plugin-crossmint-headless-checkout";
+import { worldstore } from "@goat-sdk/plugin-worldstore";
 import { viem } from "@goat-sdk/wallet-viem";
 import { z } from "zod";
-import { worldstore } from "@goat-sdk/plugin-worldstore";
 
 require("dotenv").config();
 
@@ -38,12 +38,12 @@ const myCallDataSchema = z.object({
         wallet: viem(walletClient),
         plugins: [
             worldstore(),
-            crossmintHeadlessCheckout(
-                {
-                    apiKey: process.env.CROSSMINT_SERVER_API_KEY as string,
-                },
-                myCallDataSchema,
-            ),
+            // crossmintHeadlessCheckout(
+            //     {
+            //         apiKey: process.env.CROSSMINT_SERVER_API_KEY as string,
+            //     },
+            //     myCallDataSchema,
+            // ),
         ],
     });
 
@@ -51,7 +51,7 @@ const myCallDataSchema = z.object({
         model: openai("gpt-4o"),
         tools: tools,
         maxSteps: 5,
-        prompt: `Find a GOAT Mug for sale, and then buy it from collection 'crossmint:${MY_CROSSMINT_COLLECTION_ID}'`,
+        prompt: `Find a 'test' product for sale`,
     });
 
     console.log(result.text);
