@@ -15,9 +15,7 @@ export class WorldstoreService {
         if (parameters.limit) {
             queryParams.set("limit", parameters.limit);
         }
-        const res = await fetch(
-            `${this.baseUrl}/api/worldstore/products/search?${queryParams.toString()}`,
-        );
+        const res = await fetch(`${this.baseUrl}/api/worldstore/products/search?${queryParams.toString()}`);
         const json = await res.json();
         console.log("Search results:", json);
         return json;
@@ -28,20 +26,17 @@ export class WorldstoreService {
     })
     async startRedemption(parameters: StartRedemptionParameters) {
         console.log("Starting redemption for shop:", parameters.shopId);
-        const res = await fetch(
-            `${this.baseUrl}/api/worldstore/shops/${parameters.shopId}/redemption/start`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    walletAddress: parameters.walletAddress,
-                    items: parameters.items,
-                    userInformation: parameters.userInformation,
-                }),
+        const res = await fetch(`${this.baseUrl}/api/worldstore/shops/${parameters.shopId}/redemption/start`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-        );
+            body: JSON.stringify({
+                walletAddress: parameters.walletAddress,
+                items: parameters.items,
+                userInformation: parameters.userInformation,
+            }),
+        });
         const json = await res.json();
         console.log("Redemption started:", json);
         return json;

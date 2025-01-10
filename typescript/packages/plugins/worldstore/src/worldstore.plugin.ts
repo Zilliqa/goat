@@ -3,7 +3,7 @@ import { Chain, PluginBase } from "@goat-sdk/core";
 import { WorldstoreService } from "./worldstore.service";
 
 export class WorldstorePlugin extends PluginBase {
-    constructor(baseUrl: string = "https://www.crossmint.com") {
+    constructor(baseUrl = "https://www.crossmint.com") {
         super("worldstore", [new WorldstoreService(baseUrl)]);
     }
 
