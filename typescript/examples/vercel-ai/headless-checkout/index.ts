@@ -1,3 +1,4 @@
+import { createInterface } from "node:readline";
 import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 
@@ -31,26 +32,48 @@ const myCallDataSchema = z.object({
     totalPrice: z.string(),
 });
 
+// Create readline interface for user input
+const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+// Function to get user input
+const getUserInput = () => {
+    return new Promise<string>((resolve) => {
+        rl.question("You: ", (input) => {
+            resolve(input);
+        });
+    });
+};
+
 (async () => {
     const tools = await getOnChainTools({
         wallet: viem(walletClient),
-        plugins: [
-            worldstore(),
-            // crossmintHeadlessCheckout(
-            //     {
-            //         apiKey: process.env.CROSSMINT_SERVER_API_KEY as string,
-            //     },
-            //     myCallDataSchema,
-            // ),
-        ],
+        plugins: [worldstore("http://localhost:3000")],
     });
 
-    const result = await generateText({
-        model: openai("gpt-4o"),
-        tools: tools,
-        maxSteps: 5,
-        prompt: `Find a 'test' product for sale`,
-    });
+    let conversationHistory = "";
 
-    console.log(result.text);
+    while (true) {
+        const userInput = await getUserInput();
+
+        if (userInput.toLowerCase() === "exit") {
+            console.log("Goodbye!");
+            rl.close();
+            break;
+        }
+
+        conversationHistory += `User: ${userInput}\n`;
+
+        const result = await generateText({
+            model: openai("gpt-4o"),
+            tools: tools,
+            maxSteps: 5,
+            prompt: `${conversationHistory}\nAssistant: `,
+        });
+
+        console.log("\nAssistant:", result.text, "\n");
+        conversationHistory += `Assistant: ${result.text}\n`;
+    }
 })();

@@ -17,6 +17,15 @@ export class BuyProductParameters extends createToolParameters(
     }),
 ) {}
 
+const ShippingAddressSchema = z.object({
+    address1: z.string(),
+    address2: z.string().optional(),
+    city: z.string(),
+    state: z.string(),
+    postalCode: z.string(),
+    country: z.enum(["US"]),
+});
+
 export class StartRedemptionParameters extends createToolParameters(
     z.object({
         shopId: z.string(),
@@ -28,10 +37,11 @@ export class StartRedemptionParameters extends createToolParameters(
             }),
         ),
         userInformation: z.object({
-            name: z.string().optional(),
+            firstName: z.string().optional(),
+            lastName: z.string().optional(),
             email: z.string().email().optional(),
             phone: z.string().optional(),
-            shippingAddress: z.string().optional(),
+            shippingAddress: ShippingAddressSchema.optional(),
         }),
     }),
 ) {}
