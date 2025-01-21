@@ -1,0 +1,36 @@
+{
+    "name": "@goat-sdk/plugin-plunderswap-test",
+    "version": "0.1.0",
+    "files": ["dist/**/*", "README.md", "package.json"],
+    "scripts": {
+        "build": "tsup",
+        "clean": "rm -rf dist",
+        "test": "vitest run --passWithNoTests"
+    },
+    "sideEffects": false,
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@goat-sdk/core": "workspace:*",
+        "@goat-sdk/plugin-plunderswap": "workspace:*",
+        "@goat-sdk/wallet-zilliqa": "workspace:*",
+        "viem": "catalog:",
+        "zod": "catalog:"
+    },
+    "peerDependencies": {
+        "@goat-sdk/core": "workspace:*",
+        "@goat-sdk/plugin-plunderswap": "workspace:*",
+        "@goat-sdk/wallet-zilliqa": "workspace:*"
+    },
+    "homepage": "https://zilliqa.com/",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/goat-sdk/goat.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/goat-sdk/goat/issues"
+    },
+    "keywords": ["ai", "agents", "web3", "zilliqa", "plunderswap"]
+}
